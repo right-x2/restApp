@@ -1,0 +1,24 @@
+table,
+th,
+td {
+  border: 1px solid darkgray;
+}
+button {
+  margin-left: auto;
+  margin-right: auto;
+}
+table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 400px;
+}
+.card {
+  background-color: darkgray;
+  text-align: center;
+}
+.open {
+  text-align: center;
+  background-color: darkturquoise;
+  color: crimson;
+}
