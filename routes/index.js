@@ -23,7 +23,6 @@ module.exports = function (app) {
         console.log(puzzle);
       }
     });
-    //res.send("200");
     res.render("index");
   });
 

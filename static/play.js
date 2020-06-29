@@ -1,5 +1,7 @@
 const cards = document.querySelectorAll(".card");
 const startBtn = document.getElementById("start_btn");
+const resetBtn = document.getElementById("reset_btn");
+const finishBtn = document.getElementById("finish_btn");
 const table = document.querySelector("table");
 const match = document.querySelector(".count").children[1];
 const count = document.querySelector(".count").children[3];
@@ -27,30 +29,47 @@ const putMethod = {
   },
 };
 
+const deleteMethod = {
+  method: "DELETE", // Method itself
+  headers: {
+    "Content-type": "application/json; charset=UTF-8", // Indicates the content
+  },
+};
 function startGame() {
   console.log("start");
   fetch(URL + "start", getMethod)
     .then((response) => response.json())
     .then((data) => {
       var cardArr = document.querySelectorAll(".card");
-
       for (let idx = 0; idx < cardArr.length; idx++) {
         cardArr[idx].innerHTML = data[idx].value;
-        cardArr[idx].classList.remove("card");
-        cardArr[idx].classList.add("open");
-        console.log(cardArr[idx].color);
+        cardArr[idx].style.color = "red";
+        cardArr[idx].style.backgroundColor = "black";
+        cardArr[idx].classList.add("CLICKED");
       }
       setTimeout(function () {
         for (let idx = 0; idx < cardArr.length; idx++) {
           cardArr[idx].innerHTML = data[idx].id;
-          cardArr[idx].classList.remove("open");
-          cardArr[idx].classList.add("card");
-          console.log(cardArr[idx].color);
+          cardArr[idx].style.color = "black";
+          cardArr[idx].style.backgroundColor = "darkgray";
+          cardArr[idx].classList.remove("CLICKED");
         }
       }, 5000);
-
       console.log(data);
     }); // Manipulate t
+}
+
+function finishGame() {
+  console.log("finish");
+  fetch(URL, deleteMethod)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+}
+function resetGame() {
+  console.log("reset");
+  fetch(URL, postMethod)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 }
 
 function clickCard(event) {
@@ -126,3 +145,5 @@ cards.forEach((card) => {
   card.addEventListener("mouseleave", mouseleaveCard);
 });
 startBtn.addEventListener("click", startGame);
+resetBtn.addEventListener("click", resetGame);
+finishBtn.addEventListener("click", finishGame);
